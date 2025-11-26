@@ -48,9 +48,9 @@ grid-25-2.txt	625	true	5	?!	-1	true
 grid-50-0.txt	2500	false	0	?!	1249	true
 grid-50-1.txt	2500	false	0	?!	521	true
 grid-50-2.txt	2500	false	11	?!	-1	true
-increase-n500-1.txt	500	true	2	16	1	true
-increase-n500-2.txt	500	true	1	17	1	true
-increase-n500-3.txt	500	true	1	16	1	true
+increase-n500-1.txt	500	?!	2	16	1	true
+increase-n500-2.txt	500	?!	1	17	1	true
+increase-n500-3.txt	500	?!	1	16	1	true
 rusty-1-2000.txt	2000	false	-1	?!	-1	false
 rusty-1-2500.txt	2500	false	-1	?!	-1	false
 rusty-1-3000.txt	3000	false	0	?!	14	true

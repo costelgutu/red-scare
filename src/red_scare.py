@@ -21,6 +21,7 @@ class Graph:
     adj: Dict[str, List[str]]      # adjacency: v -> neighbors (directed as given)
     radj: Dict[str, List[str]]     # reverse adjacency for directed edges
     has_undirected: bool           # True if any "--" edge appears
+    has_directed: bool             # True if any "->" edge appears
 
 
 def parse_graph(path: str) -> Graph:
@@ -58,6 +59,7 @@ def parse_graph(path: str) -> Graph:
         name_set = set(vertices)
 
         has_undirected = False
+        has_directed = False
 
         # read <edges> block
         for line in f:
@@ -78,6 +80,7 @@ def parse_graph(path: str) -> Graph:
                 radj[u].append(v)
                 radj[v].append(u)
             elif arrow == "->":
+                has_directed = True
                 adj[u].append(v)
                 radj[v].append(u)
             else:
@@ -97,6 +100,7 @@ def parse_graph(path: str) -> Graph:
         adj=adj,
         radj=radj,
         has_undirected=has_undirected,
+        has_directed=has_directed,
     )
 
 
@@ -193,8 +197,12 @@ def solve_few(G: Graph) -> int:
 
 # ---------- Problem: Alternate ----------
 
-def solve_alternate(G: Graph) -> bool:
-    """Return True if there is a path from s to t that alternates red/non-red."""
+def solve_alternate(G: Graph) -> Optional[bool]:
+    """Return True if there is a path from s to t that alternates red/non-red.
+       We only solve this on purely undirected graphs; otherwise return None.
+    """
+    if G.has_directed:
+        return None
     dq = deque([G.s])
     seen: Set[str] = {G.s}
 
@@ -296,7 +304,7 @@ def solve_many(G: Graph) -> Optional[int]:
 
 # ---------- CLI ----------
 
-def solve_all(G: Graph) -> Tuple[int, bool, Optional[int], int, bool]:
+def solve_all(G: Graph) -> Tuple[int, bool, Optional[int], int, Optional[bool]]:
     """Run all five problems and return a tuple:
        (none, some, many, few, alternate)
     """
@@ -337,4 +345,3 @@ def main(argv: List[str]) -> None:
 
 if __name__ == "__main__":
     main(sys.argv)
-

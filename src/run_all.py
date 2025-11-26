@@ -27,7 +27,11 @@ def main() -> None:
             none_val, some_val, many_val, few_val, alt_val = red_scare.solve_all(G)
 
             # Map results to the table format
-            A = "true" if alt_val else "false"
+            # Alternate is only solved on supported graphs; otherwise None -> "?!"
+            if alt_val is None:
+                A = "?!"
+            else:
+                A = "true" if alt_val else "false"
             F = str(few_val)
             # Many: NP-hard in general; we only solve DAGs with no undirected edges.
             # If our algorithm declines (returns None), mark as '?!' (hard).
